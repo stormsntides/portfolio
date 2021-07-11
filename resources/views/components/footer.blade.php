@@ -27,24 +27,25 @@
             </div>
         </div>
     </section>
-    <section class="container d-flex justify-content-between flex-wrap">
+    <section class="container d-flex justify-content-between align-items-center flex-wrap">
         <div class="text-light">&copy; @php echo date("Y"); @endphp Copyright - Ernest Cates</div>
-        <div>
+        <div class="d-flex justify-content-between align-items-center">
             <a class="link-light" href="{{ route('home') }}">Home</a>
-            <span class="text-muted">|</span>
             @if (Auth::user())
                 @if (Auth::user()->role === env('HIGHEST_USER_PRIVILEGE'))
+                    <span class="text-muted mx-2">|</span>
                     <a class="link-light" href="{{ route('view.messages') }}">Messages</a>
-                    <span class="text-muted">|</span>
+                    <span class="text-muted mx-2">|</span>
                     <a class="link-light" href="{{ route('view.users') }}">Users</a>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
-                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                    <button class="btn btn-outline-light btn-sm ms-2" type="submit">Logout</button>
                     @csrf
                 </form>
             @else
+                <span class="text-muted mx-2">|</span>
                 <a class="link-light" href="{{ route('login') }}">Login</a>
-                <span class="text-muted">|</span>
+                <span class="text-muted mx-2">|</span>
                 <a class="link-light" href="{{ route('register') }}">Register</a>
             @endif
         </div>
