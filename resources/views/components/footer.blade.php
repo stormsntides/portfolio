@@ -31,8 +31,22 @@
         <div class="text-light">&copy; @php echo date("Y"); @endphp Copyright - Ernest Cates</div>
         <div>
             <a class="link-light" href="{{ route('home') }}">Home</a>
-            <span class="link-muted">|</span>
-            <a class="link-light" href="{{ route('login') }}">Account</a>
+            <span class="text-muted">|</span>
+            @if (Auth::user())
+                @if (Auth::user()->role === env('HIGHEST_USER_PRIVILEGE'))
+                    <a class="link-light" href="{{ route('view.messages') }}">Messages</a>
+                    <span class="text-muted">|</span>
+                    <a class="link-light" href="{{ route('view.users') }}">Users</a>
+                @endif
+                <form action="{{ route('logout') }}" method="POST">
+                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                    @csrf
+                </form>
+            @else
+                <a class="link-light" href="{{ route('login') }}">Login</a>
+                <span class="text-muted">|</span>
+                <a class="link-light" href="{{ route('register') }}">Register</a>
+            @endif
         </div>
     </section>
 </footer>
